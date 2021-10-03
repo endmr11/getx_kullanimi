@@ -194,7 +194,7 @@ class _SecondState extends State<Second> {
                 );
               },
               child: Text(
-                'Sample Dialog',
+                'Basit Dialog',
                 style: TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
