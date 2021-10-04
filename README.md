@@ -1,6 +1,6 @@
 # getx_kullanimi1
 
-GetX Paketinin Kullanımı
+A new Flutter project.
 
 ## Getting Started
 

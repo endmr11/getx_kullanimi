@@ -6,14 +6,12 @@ import 'package:get_storage/get_storage.dart';
 void main() async {
   await GetStorage.init();
   runApp(
-    SimpleBuilder(
-      builder: (_) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: TemaYonetimi().theme,
-          home: Home(),
-        );
-      },
+    GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: TemaYonetimi().isLight
+          ? ThemeData.light()
+          : ThemeData.dark(), //TemaYonetimi().theme,
+      home: Home(),
     ),
   );
 }
@@ -113,36 +111,6 @@ class _SecondState extends State<Second> {
                 fontSize: 25.0,
               ),
             ),
-            /*ElevatedButton(
-              onPressed: () {
-                if (_darkThemeEnabled) {
-                  Get.changeTheme(
-                    ThemeData(
-                      primaryColor: Colors.blue,
-                      buttonColor: Colors.blue,
-                      accentColor: Colors.blue,
-                    ),
-                  );
-                  _darkThemeEnabled = false;
-                } else {
-                  Get.changeTheme(
-                    ThemeData(
-                      primaryColor: Colors.grey[900],
-                      buttonColor: Colors.grey[900],
-                      accentColor: Colors.grey[900],
-                    ), /*ThemeData.dark()*/
-                  );
-                  _darkThemeEnabled = true;
-                }
-              },
-              child: Text(
-                'Tema Değiştir',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                ),
-              ),
-            ),*/
             ElevatedButton(
               onPressed: () {
                 Get.snackbar(
@@ -201,27 +169,22 @@ class _SecondState extends State<Second> {
                 ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                temaYonetimi.changeTheme(!temaYonetimi.isLight);
-                setState(() {});
-              },
-              child: Text(
-                'Shared Preferences',
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
             SwitchListTile(
               value: temaYonetimi.isLight,
               title: temaYonetimi.isLight
-                  ? Text("Kapalı Tema")
-                  : Text("Açık Tema"),
+                  ? Text("Açık Tema")
+                  : Text("Kapalı Tema"),
               onChanged: (val) {
                 temaYonetimi.changeTheme(val);
                 setState(() {});
+
+                if (temaYonetimi.isLight) {
+                  Get.changeTheme(ThemeData.light());
+                  _darkThemeEnabled = false;
+                } else {
+                  Get.changeTheme(ThemeData.dark());
+                  _darkThemeEnabled = true;
+                }
               },
             ),
           ],
